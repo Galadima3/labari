@@ -1,86 +1,77 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
-class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
-  @override
-  final Size preferredSize;
-
-  final String title;
-
-  CustomAppBar(
-    this.title, {
-    Key? key,
-  })  : preferredSize = Size.fromHeight(50.0),
-        super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      title: Text(
-        title,
-        style: TextStyle(color: Colors.black),
-      ),
-      backgroundColor: Colors.white,
-      automaticallyImplyLeading: true,
-      elevation: 2,
-    );
-  }
-}
-
-class DrawerWidget extends StatelessWidget {
-  const DrawerWidget({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        // Important: Remove any padding from the ListView.
-        padding: EdgeInsets.zero,
-        children: [
-          const DrawerHeader(
-            padding: EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Colors.blue,
-            ),
-            child: Text('Drawer Header'),
-          ),
-          ListTile(
-            tileColor: Colors.grey.shade200,
-            title: const Text('Item 1'),
-            onTap: () {
-              // Update the state of the app.
-              // ...
-            },
-          ),
-          ListTile(
-            title: const Text('Item 2'),
-            onTap: () {
-              // Update the state of the app.
-              // ...
-            },
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class SpecialContainer extends StatelessWidget {
-  final Color colors;
-  
-  SpecialContainer({super.key, required this.colors,});
+class NewsHeadline extends StatelessWidget {
+  final String imagePath;
+  const NewsHeadline({super.key, required this.imagePath});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(12),
-      child: Container(
-        decoration: BoxDecoration(
-          color: colors,
-          borderRadius: BorderRadius.circular(15)
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(30),
+        child: Container(
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
+          width: 310,
+          child: Image.network(imagePath),
         ),
-        width: 160,
-        
       ),
     );
   }
 }
+
+class NewsTile extends StatelessWidget {
+  final imagePath;
+  final String headlineText;
+  final String publishDay;
+  const NewsTile({
+    Key? key, required this.imagePath, required this.headlineText, required this.publishDay,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding:
+          const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
+      child: Container(
+        height: 100,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(17),
+            color: Colors.blue.shade500),
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.asset(imagePath),
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Flexible(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text(
+                    headlineText,
+                    style:
+                        TextStyle(color: Colors.white, fontSize: 15),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(publishDay, style: TextStyle(color: Colors.white),),
+                      SizedBox(width: 15),
+                    ]
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 
 class CovidTab extends StatefulWidget {
@@ -10,8 +12,9 @@ class CovidTab extends StatefulWidget {
 class _CovidTabState extends State<CovidTab> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: const Center(child: Text('COVID-19'),),
-    );
+    return const Center(
+        child: Text('COVID-19'),
+      );
   }
 }
+
