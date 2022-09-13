@@ -1,90 +1,124 @@
-// {
-//   AutoGenerate({
-//     required this.status,
-//     required this.totalResults,
-//     required this.articles,
-//   });
-//   late final String status;
-//   late final int totalResults;
-//   late final List<Articles> articles;
-  
-//   AutoGenerate.fromJson(Map<String, dynamic> json){
-//     status = json['status'];
-//     totalResults = json['totalResults'];
-//     articles = List.from(json['articles']).map((e)=>Articles.fromJson(e)).toList();
-//   }
+// // To parse this JSON data, do
+// //
+// //     final headlines = headlinesFromJson(jsonString);
 
-//   Map<String, dynamic> toJson() {
-//     final _data = <String, dynamic>{};
-//     _data['status'] = status;
-//     _data['totalResults'] = totalResults;
-//     _data['articles'] = articles.map((e)=>e.toJson()).toList();
-//     return _data;
-//   }
+// import 'package:meta/meta.dart';
+// import 'dart:convert';
+
+// Headlines headlinesFromJson(String str) => Headlines.fromJson(json.decode(str));
+
+// String headlinesToJson(Headlines data) => json.encode(data.toJson());
+
+// class Headlines {
+//     Headlines({
+//         required this.status,
+//         required this.totalResults,
+//         required this.articles,
+//     });
+
+//     String status;
+//     int totalResults;
+//     List<Article> articles;
+
+//     factory Headlines.fromJson(Map<String, dynamic> json) => Headlines(
+//         status: json["status"],
+//         totalResults: json["totalResults"],
+//         articles: List<Article>.from(json["articles"].map((x) => Article.fromJson(x))),
+//     );
+
+//     Map<String, dynamic> toJson() => {
+//         "status": status,
+//         "totalResults": totalResults,
+//         "articles": List<dynamic>.from(articles.map((x) => x.toJson())),
+//     };
 // }
 
-// class Articles {
-//   Articles({
-//     required this.source,
-//     required this.author,
-//     required this.title,
-//     required this.description,
-//     required this.url,
-//     required this.urlToImage,
-//     required this.publishedAt,
-//     required this.content,
-//   });
-//   late final Source source;
-//   late final String author;
-//   late final String title;
-//   late final String description;
-//   late final String url;
-//   late final String urlToImage;
-//   late final String publishedAt;
-//   late final String content;
-  
-//   Articles.fromJson(Map<String, dynamic> json){
-//     source = Source.fromJson(json['source']);
-//     author = json['author'];
-//     title = json['title'];
-//     description = json['description'];
-//     url = json['url'];
-//     urlToImage = json['urlToImage'];
-//     publishedAt = json['publishedAt'];
-//     content = json['content'];
-//   }
+// class Article {
+//     Article({
+//         required this.source,
+//         required this.author,
+//         required this.title,
+//         required this.description,
+//         required this.url,
+//         required this.urlToImage,
+//         required this.publishedAt,
+//         required this.content,
+//     });
 
-//   Map<String, dynamic> toJson() {
-//     final _data = <String, dynamic>{};
-//     _data['source'] = source.toJson();
-//     _data['author'] = author;
-//     _data['title'] = title;
-//     _data['description'] = description;
-//     _data['url'] = url;
-//     _data['urlToImage'] = urlToImage;
-//     _data['publishedAt'] = publishedAt;
-//     _data['content'] = content;
-//     return _data;
-//   }
+//     Source source;
+//     Author author;
+//     String title;
+//     String description;
+//     String url;
+//     String urlToImage;
+//     DateTime publishedAt;
+//     String content;
+
+//     factory Article.fromJson(Map<String, dynamic> json) => Article(
+//         source: Source.fromJson(json["source"]),
+//         author: authorValues.map[json["author"]],
+//         title: json["title"],
+//         description: json["description"],
+//         url: json["url"],
+//         urlToImage: json["urlToImage"],
+//         publishedAt: DateTime.parse(json["publishedAt"]),
+//         content: json["content"],
+//     );
+
+//     Map<String, dynamic> toJson() => {
+//         "source": source.toJson(),
+//         "author": authorValues.reverse[author],
+//         "title": title,
+//         "description": description,
+//         "url": url,
+//         "urlToImage": urlToImage,
+//         "publishedAt": publishedAt.toIso8601String(),
+//         "content": content,
+//     };
 // }
+
+// enum Author { BBC_NEWS }
+
+// final authorValues = EnumValues({
+//     "BBC News": Author.BBC_NEWS
+// });
 
 // class Source {
-//   Source({
-//     required this.id,
-//     required this.name,
-//   });
-//   late final String id;
-//   late final String name;
-  
-//   Source.fromJson(Map<String, dynamic> json){
-//     id = json['id'];
-//     name = json['name'];
-//   }
+//     Source({
+//         required this.id,
+//         required this.name,
+//     });
 
-//   Map<String, dynamic> toJson() {
-//     final _data = <String, dynamic>{};
-//     _data['id'] = id;
-//     _data['name'] = name;
-//     return _data;
-//   }
+//     Id id;
+//     Author name;
+
+//     factory Source.fromJson(Map<String, dynamic> json) => Source(
+//         id: idValues.map[json["id"]],
+//         name: authorValues.map[json["name"]],
+//     );
+
+//     Map<String, dynamic> toJson() => {
+//         "id": idValues.reverse[id],
+//         "name": authorValues.reverse[name],
+//     };
+// }
+
+// enum Id { BBC_NEWS }
+
+// final idValues = EnumValues({
+//     "bbc-news": Id.BBC_NEWS
+// });
+
+// class EnumValues<T> {
+//     Map<String, T> map;
+//     late Map<T, String> reverseMap;
+
+//     EnumValues(this.map);
+
+//     Map<T, String> get reverse {
+//         if (reverseMap == null) {
+//             reverseMap = map.map((k, v) => new MapEntry(v, k));
+//         }
+//         return reverseMap;
+//     }
 // }

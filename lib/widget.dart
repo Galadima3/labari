@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:labari/services/networking.dart';
 
 class NewsHeadline extends StatelessWidget {
   final String imagePath;
@@ -8,33 +9,48 @@ class NewsHeadline extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(30),
-        child: Container(
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
-          width: 310,
-          child: Image.network(imagePath),
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(12),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(30),
+            child: Container(
+              height: 210,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  image: DecorationImage(
+                      image: NetworkImage(imagePath), fit: BoxFit.cover)),
+              width: 270,
+
+              // child: Image.network(imagePath, fit: BoxFit.fill,),
+            ),
+          ),
         ),
-      ),
+        Text('Welcome to NewsAPI')
+      ],
     );
   }
 }
 
 class NewsTile extends StatelessWidget {
+  NetworkHelper networkHelper = NetworkHelper(
+      url:
+          'https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=726bef2cc5114d618ba36683689aa4e8');
   final imagePath;
   final String headlineText;
   final String publishDay;
-  const NewsTile({
-    Key? key, required this.imagePath, required this.headlineText, required this.publishDay,
+  NewsTile({
+    Key? key,
+    required this.imagePath,
+    required this.headlineText,
+    required this.publishDay,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:
-          const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
       child: Container(
         height: 100,
         decoration: BoxDecoration(
@@ -55,16 +71,15 @@ class NewsTile extends StatelessWidget {
                 children: [
                   Text(
                     headlineText,
-                    style:
-                        TextStyle(color: Colors.white, fontSize: 15),
+                    style: TextStyle(color: Colors.white, fontSize: 15),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(publishDay, style: TextStyle(color: Colors.white),),
-                      SizedBox(width: 15),
-                    ]
-                  )
+                  Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                    Text(
+                      publishDay,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    SizedBox(width: 15),
+                  ])
                 ],
               ),
             )
@@ -74,4 +89,3 @@ class NewsTile extends StatelessWidget {
     );
   }
 }
-

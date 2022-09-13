@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+
+
 import 'package:flutter/material.dart';
 import 'package:labari/services/networking.dart';
 import 'package:labari/screens/covid_tab.dart';
@@ -21,10 +23,10 @@ class _HomePageState extends State<HomePage> {
   
   @override
   void initState() {
-    
+    getNewsData();
     super.initState();
   }
-  void getNewsData() async {
+  getNewsData() async {
     NetworkHelper networkHelper = NetworkHelper(
       url: 'https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=$apiKey');
    var newsData = await networkHelper.getData();
@@ -86,6 +88,7 @@ class _HomePageState extends State<HomePage> {
                   Text('Top Headlines', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
                 ],
               ),
+
               Container(
                 //margin: const EdgeInsets.symmetric(vertical: 5.0),
                 height: 250,
@@ -112,6 +115,9 @@ class _HomePageState extends State<HomePage> {
                             'https://images.unsplash.com/photo-1557428894-56bcc97113fe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fG5ld3N8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60')
                   ],
                 ),
+              ),
+              SizedBox(
+                height: 10,
               ),
               TabBar(
                 indicatorSize: TabBarIndicatorSize.label,

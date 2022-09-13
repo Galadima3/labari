@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 
 import '../widget.dart';
 
+const apiKey = '726bef2cc5114d618ba36683689aa4e8';
+
 class CryptoTab extends StatefulWidget {
-  const CryptoTab({super.key});
+  final newsData;
+  const CryptoTab({super.key, this.newsData});
 
   @override
   State<CryptoTab> createState() => _CryptoTabState();
@@ -23,13 +26,37 @@ class _CryptoTabState extends State<CryptoTab> {
           child: ListView(
             children: [
               //first headline
-              NewsTile(imagePath: 'images/bitcoin.jpg', headlineText: 'Price of Bitcoin soars to \$90,000 following PoW upgrades', publishDay: 'Today'),
+              NewsTile(
+                  imagePath: 'images/bitcoin.jpg',
+                  headlineText:
+                      'Price of Bitcoin soars to \$90,000 following PoW upgrades',
+                  publishDay: 'Today'),
 
               //second headline
-              NewsTile(imagePath: 'images/bitcoin.jpg',headlineText: 'Demand for Bitcoin soars to an all-time high as retail investors flood the market', publishDay: 'Yesterday',),
-              NewsTile(imagePath: 'images/bitcoin.jpg',headlineText: 'Demand for Bitcoin soars to an all-time high as retail investors flood the market', publishDay: 'Yesterday',),
-              NewsTile(imagePath: 'images/bitcoin.jpg',headlineText: 'Demand for Bitcoin soars to an all-time high as retail investors flood the market', publishDay: 'Yesterday',),
-              NewsTile(imagePath: 'images/bitcoin.jpg',headlineText: 'Demand for Bitcoin soars to an all-time high as retail investors flood the market', publishDay: 'Yesterday',),
+              NewsTile(
+                imagePath: 'images/bitcoin.jpg',
+                headlineText:
+                    'Demand for Bitcoin soars to an all-time high as retail investors flood the market',
+                publishDay: 'Yesterday',
+              ),
+              NewsTile(
+                imagePath: 'images/bitcoin.jpg',
+                headlineText:
+                    'Demand for Bitcoin soars to an all-time high as retail investors flood the market',
+                publishDay: 'Yesterday',
+              ),
+              NewsTile(
+                imagePath: 'images/bitcoin.jpg',
+                headlineText:
+                    'Demand for Bitcoin soars to an all-time high as retail investors flood the market',
+                publishDay: 'Yesterday',
+              ),
+              NewsTile(
+                imagePath: 'images/bitcoin.jpg',
+                headlineText:
+                    'Demand for Bitcoin soars to an all-time high as retail investors flood the market',
+                publishDay: 'Yesterday',
+              ),
             ],
           ),
         )
@@ -37,4 +64,3 @@ class _CryptoTabState extends State<CryptoTab> {
     );
   }
 }
-
