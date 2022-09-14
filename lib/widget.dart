@@ -1,7 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:labari/services/networking.dart';
+import 'package:labari/screens/article_view.dart';
+
 
 class NewsCategory extends StatelessWidget {
   final String imagePath;
@@ -11,7 +12,9 @@ class NewsCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        print('Tapped');
+      },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -43,58 +46,74 @@ class NewsCategory extends StatelessWidget {
 }
 
 class NewsTile extends StatelessWidget {
-  NetworkHelper networkHelper = NetworkHelper(
-      url:
-          'https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=726bef2cc5114d618ba36683689aa4e8');
-  final imagePath;
-  final String headlineText;
-  final String publishDay;
-  NewsTile({
-    Key? key,
-    required this.imagePath,
-    required this.headlineText,
-    required this.publishDay,
-  }) : super(key: key);
+  final String imgUrl, title, desc, content, posturl;
+
+  NewsTile(
+      {Key? key,
+      required this.imgUrl,
+      required this.title,
+      required this.desc,
+      required this.posturl,
+      required this.content})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ArticleView(
+                    postUrl: posturl,
+                    )));
+      },
       child: Container(
-        height: 100,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(17),
-            color: Colors.blue.shade500),
-        child: Row(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image.asset(imagePath),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Flexible(
+          margin: EdgeInsets.only(bottom: 24),
+          width: MediaQuery.of(context).size.width,
+          child: Container(
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              alignment: Alignment.bottomCenter,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(6),
+                      bottomLeft: Radius.circular(6))),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    headlineText,
-                    style: TextStyle(color: Colors.white, fontSize: 15),
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  ClipRRect(
+                      borderRadius: BorderRadius.circular(6),
+                      child: Image.network(
+                        imgUrl,
+                        height: 200,
+                        width: MediaQuery.of(context).size.width,
+                        fit: BoxFit.cover,
+                      )),
+                  SizedBox(
+                    height: 12,
                   ),
-                  Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                    Text(
-                      publishDay,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    SizedBox(width: 15),
-                  ])
+                  Text(
+                    title,
+                    maxLines: 2,
+                    style: TextStyle(
+                        color: Colors.black87,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  SizedBox(
+                    height: 4,
+                  ),
+                  Text(
+                    desc,
+                    maxLines: 2,
+                    style: TextStyle(color: Colors.black54, fontSize: 14),
+                  )
                 ],
               ),
-            )
-          ],
-        ),
-      ),
+            ),
+          )),
     );
   }
 }

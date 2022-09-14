@@ -1,11 +1,12 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:labari/services/networking.dart';
 
 import 'package:labari/widget.dart';
 
-const apiKey = '726bef2cc5114d618ba36683689aa4e8';
+import '../helper.dart/data.dart';
+import '../helper.dart/news.dart';
+import '../models/categorie_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,24 +15,25 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+List<CategorieModel> categories = <CategorieModel>[];
+
 class _HomePageState extends State<HomePage> {
-  @override
-  void initState() {
-    getNewsData();
-    super.initState();
+  List newslist = [];
+  void getNews() async {
+    News news = News();
+    await news.getNews();
+    newslist = news.news;
   }
 
-  getNewsData() async {
-    NetworkHelper networkHelper = NetworkHelper(
-        url:
-            'https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=$apiKey');
-    var newsData = await networkHelper.getData();
-    print(newsData);
+  @override
+  void initState() {
+    getNews();
+    super.initState();
+    categories = getCategories();
   }
 
   @override
   Widget build(BuildContext context) {
-    getNewsData();
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -83,34 +85,15 @@ class _HomePageState extends State<HomePage> {
               ),
               Container(
                 height: 300,
-                child: ListView(
+                child: ListView.builder(
+                  itemCount: categories.length,
                   scrollDirection: Axis.horizontal,
-                  children: [
-                    NewsCategory(
-                        text: 'Sports',
-                        imagePath:
-                            'https://images.unsplash.com/photo-1495020689067-958852a7765e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bmV3c3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60'),
-                    NewsCategory(
-                        text: 'Tech',
-                        imagePath:
-                            'https://images.unsplash.com/photo-1546422904-90eab23c3d7e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8bmV3c3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60'),
-                    NewsCategory(
-                        text: 'Politics',
-                        imagePath:
-                            'https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bmV3c3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60'),
-                    NewsCategory(
-                        text: 'Finance',
-                        imagePath:
-                            'https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bmV3c3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60'),
-                    NewsCategory(
-                        text: 'Health',
-                        imagePath:
-                            'https://images.unsplash.com/photo-1585776245991-cf89dd7fc73a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fG5ld3N8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60'),
-                    NewsCategory(
-                        text: 'Foreign Affairs',
-                        imagePath:
-                            'https://images.unsplash.com/photo-1557428894-56bcc97113fe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fG5ld3N8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60')
-                  ],
+                  itemBuilder: ((context, index) {
+                    return NewsCategory(
+                      imagePath: categories[index].imageAssetUrl,
+                      text: categories[index].categorieName,
+                    );
+                  }),
                 ),
               ),
               SizedBox(
@@ -131,6 +114,22 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
+              Container(
+                margin: EdgeInsets.only(top: 16),
+                child: ListView.builder(
+                    itemCount: newslist.length,
+                    shrinkWrap: true,
+                    physics: ClampingScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return NewsTile(
+                        imgUrl: newslist[index].urlToImage ?? "",
+                        title: newslist[index].title ?? "",
+                        desc: newslist[index].description ?? "",
+                        content: newslist[index].content ?? "",
+                        posturl: newslist[index].articleUrl ?? "",
+                      );
+                    }),
+              ),
             ],
           ),
         ),
@@ -138,49 +137,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-// TabBar(
-              //   indicatorSize: TabBarIndicatorSize.label,
-              //   isScrollable: true,
-              //   tabs: [
-              //     Tab(
-              //       text: 'COVID-19',
-              //     ),
-              //     Tab(
-              //       text: 'Crypto',
-              //     ),
-              //     Tab(
-              //       text: 'Tech',
-              //     ),
-              //     Tab(
-              //       text: 'Sports',
-              //     ),
-              //   ],
-              // ),
-              // Expanded(
-              //     child: TabBarView(
-              //   children: [
-              //     CovidTab(),
-              //     CryptoTab(),
-              //     TechTab(),
-              //     SportsTab(),
-              //   ],
-              // ))
-
-              // extendBody: true,
-          // bottomNavigationBar: BottomNavigationBar(
-          //     elevation: 1,
-          //     iconSize: 25,
-          //     selectedIconTheme:
-          //         IconThemeData(color: Colors.blueAccent, size: 40),
-          //     items: [
-          //       BottomNavigationBarItem(
-          //           icon: Icon(Icons.home, color: Colors.black), label: ''),
-          //       BottomNavigationBarItem(
-          //           icon: Icon(Icons.trending_up, color: Colors.black),
-          //           label: ''),
-          //       BottomNavigationBarItem(
-          //           icon: Icon(Icons.search, color: Colors.black), label: ''),
-          //       BottomNavigationBarItem(
-          //           icon: Icon(Icons.bookmark, color: Colors.black), label: ''),
-          //     ]),
