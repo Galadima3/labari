@@ -38,11 +38,17 @@ dependencies:
   cupertino_icons: ^1.0.2
   floating_bottom_navigation_bar: ^1.5.2
   http: ^0.13.5
+  json_annotation: ^4.6.0
+  carousel_slider: ^4.1.1
+  webview_flutter: ^3.0.4
+  
   
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  json_serializable: ^6.3.2 
+  build_runner: ^2.2.1 
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

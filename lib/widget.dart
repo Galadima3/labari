@@ -3,32 +3,41 @@
 import 'package:flutter/material.dart';
 import 'package:labari/services/networking.dart';
 
-class NewsHeadline extends StatelessWidget {
+class NewsCategory extends StatelessWidget {
   final String imagePath;
-  const NewsHeadline({super.key, required this.imagePath});
+  final String text;
+  const NewsCategory({super.key, required this.imagePath, required this.text});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(12),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(30),
-            child: Container(
-              height: 210,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  image: DecorationImage(
-                      image: NetworkImage(imagePath), fit: BoxFit.cover)),
-              width: 270,
+    return GestureDetector(
+      onTap: () {},
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(30),
+              child: Container(
+                height: 230,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    image: DecorationImage(
+                        image: NetworkImage(imagePath), fit: BoxFit.cover)),
+                width: 270,
 
-              // child: Image.network(imagePath, fit: BoxFit.fill,),
+                // child: Image.network(imagePath, fit: BoxFit.fill,),
+              ),
             ),
           ),
-        ),
-        Text('Welcome to NewsAPI')
-      ],
+          Expanded(
+              child: Text(
+            text,
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+          ))
+        ],
+      ),
     );
   }
 }
