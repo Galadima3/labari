@@ -19,22 +19,22 @@ List<CategorieModel> categories = <CategorieModel>[];
 
 class _HomePageState extends State<HomePage> {
   var newslist;
-  void getNews() async {
-   
+
+  getNews() async {
     News news = News();
     await news.getNews();
-    setState(() {
-      newslist = news.news;
-    });
-
+    newslist = news.news;
+    //newslist.add(news.news);
+    print(newslist.length);
+    
   }
- 
 
   @override
   void initState() {
-    getNews();
     super.initState();
+
     categories = getCategories();
+    getNews();
   }
 
   @override
@@ -120,22 +120,26 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-              Container(
-                margin: EdgeInsets.only(top: 16),
-                child: ListView.builder(
-                    itemCount: newslist.length,
-                    shrinkWrap: true,
-                    physics: ClampingScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return NewsTile(
-                        imgUrl: newslist[index].urlToImage ?? "",
-                        title: newslist[index].title ?? "",
-                        desc: newslist[index].description ?? "",
-                        content: newslist[index].content ?? "",
-                        posturl: newslist[index].articleUrl ?? "",
-                      );
-                    }),
-              ),
+              
+              // Container(
+              //           margin: EdgeInsets.only(top: 16),
+              //           child: ListView.builder(
+              //               itemCount: newslist.length,
+              //               shrinkWrap: true,
+              //               physics: ClampingScrollPhysics(),
+              //               itemBuilder: (context, index) {
+              //                 return NewsTile(
+              //                   imgUrl: newslist[index]['url'],
+              //                   title: newslist[index]['title'],
+              //                   desc: newslist[index]['description'],
+              //                   content: newslist[index]['content'],
+              //                   posturl: newslist[index]['articleUrl'],
+              //                   // desc: newslist[index].description ?? "",
+              //                   // content: newslist[index].content ?? "",
+              //                   // posturl: newslist[index].articleUrl ?? "",
+              //                 );
+              //               }),
+              //         ),
             ],
           ),
         ),
@@ -145,3 +149,19 @@ class _HomePageState extends State<HomePage> {
 }
 
 
+// Container(
+//                         margin: EdgeInsets.only(top: 16),
+//                         child: ListView.builder(
+//                             itemCount: newslist.length,
+//                             shrinkWrap: true,
+//                             physics: ClampingScrollPhysics(),
+//                             itemBuilder: (context, index) {
+                              // return NewsTile(
+                              //   imgUrl: newslist[index].urlToImage ?? "",
+                              //   title: newslist[index].title ?? "",
+                              //   desc: newslist[index].description ?? "",
+                              //   content: newslist[index].content ?? "",
+                              //   posturl: newslist[index].articleUrl ?? "",
+                              // );
+//                             }),
+//                       ),
