@@ -2,18 +2,23 @@
 
 import 'package:flutter/material.dart';
 import 'package:labari/screens/article_view.dart';
+import 'package:labari/screens/news_category.dart';
 
 
-class NewsCategory extends StatelessWidget {
+class NewsCategoryTile extends StatelessWidget {
   final String imagePath;
-  final String text;
-  const NewsCategory({super.key, required this.imagePath, required this.text});
+  final String categoryTitle;
+  const NewsCategoryTile({super.key, required this.imagePath, required this.categoryTitle, });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print('Tapped');
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) => NewsCategoryPage(
+            newsCategory: categoryTitle,
+          )
+        ));
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -36,7 +41,7 @@ class NewsCategory extends StatelessWidget {
           ),
           Expanded(
               child: Text(
-            text,
+            categoryTitle,
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
           ))
         ],
@@ -99,7 +104,7 @@ class NewsTile extends StatelessWidget {
                     maxLines: 2,
                     style: TextStyle(
                         color: Colors.black87,
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.w500),
                   ),
                   SizedBox(

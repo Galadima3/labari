@@ -18,12 +18,17 @@ class HomePage extends StatefulWidget {
 List<CategorieModel> categories = <CategorieModel>[];
 
 class _HomePageState extends State<HomePage> {
-  List newslist = [];
+  var newslist;
   void getNews() async {
+   
     News news = News();
     await news.getNews();
-    newslist = news.news;
+    setState(() {
+      newslist = news.news;
+    });
+
   }
+ 
 
   @override
   void initState() {
@@ -34,6 +39,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    getNews();
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -89,9 +95,9 @@ class _HomePageState extends State<HomePage> {
                   itemCount: categories.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: ((context, index) {
-                    return NewsCategory(
+                    return NewsCategoryTile(
                       imagePath: categories[index].imageAssetUrl,
-                      text: categories[index].categorieName,
+                      categoryTitle: categories[index].categorieName,
                     );
                   }),
                 ),
@@ -137,3 +143,5 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+
