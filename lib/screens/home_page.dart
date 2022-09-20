@@ -24,8 +24,10 @@ class _HomePageState extends State<HomePage> {
     News news = News();
     await news.getNews();
     newslist = news.news;
-    //newslist.add(news.news);
-    print(newslist.length);
+    newslist.add(news.news);
+    // print(newslist.length);
+    // print(newslist[0].description);
+    // print(newslist[0].title);
     
   }
 
@@ -121,25 +123,23 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               
-              // Container(
-              //           margin: EdgeInsets.only(top: 16),
-              //           child: ListView.builder(
-              //               itemCount: newslist.length,
-              //               shrinkWrap: true,
-              //               physics: ClampingScrollPhysics(),
-              //               itemBuilder: (context, index) {
-              //                 return NewsTile(
-              //                   imgUrl: newslist[index]['url'],
-              //                   title: newslist[index]['title'],
-              //                   desc: newslist[index]['description'],
-              //                   content: newslist[index]['content'],
-              //                   posturl: newslist[index]['articleUrl'],
-              //                   // desc: newslist[index].description ?? "",
-              //                   // content: newslist[index].content ?? "",
-              //                   // posturl: newslist[index].articleUrl ?? "",
-              //                 );
-              //               }),
-              //         ),
+              Container(
+                        margin: EdgeInsets.only(top: 16),
+                        child: ListView.builder(
+                            itemCount: newslist.length,
+                            shrinkWrap: true,
+                            physics: ClampingScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return NewsTile(
+                                imgUrl: newslist[index].urlToImage ?? "",
+                                title: newslist[index].title ?? "",
+                                desc: newslist[index].description ?? "",
+                                content: newslist[index].content ?? "",
+                                posturl: newslist[index].articleUrl ?? "",
+                              );
+
+                            }),
+                      ),
             ],
           ),
         ),
@@ -165,3 +165,9 @@ class _HomePageState extends State<HomePage> {
                               // );
 //                             }),
 //                       ),
+
+// imgUrl: newslist[index]['url'],
+// title: newslist[index]['title'],
+// desc: newslist[index]['description'],
+// content: newslist[index]['content'],
+// posturl: newslist[index]['articleUrl'],
