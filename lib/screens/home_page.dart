@@ -21,22 +21,20 @@ class _HomePageState extends State<HomePage> {
   var newslist;
 
   getNews() async {
+    Future.delayed(Duration(seconds: 3));
     News news = News();
     await news.getNews();
     newslist = news.news;
     newslist.add(news.news);
-    // print(newslist.length);
-    // print(newslist[0].description);
-    // print(newslist[0].title);
-    
+
   }
 
   @override
   void initState() {
+    getNews();
     super.initState();
 
     categories = getCategories();
-    getNews();
   }
 
   @override
@@ -122,24 +120,34 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-              
-              Container(
-                        margin: EdgeInsets.only(top: 16),
-                        child: ListView.builder(
-                            itemCount: newslist.length,
-                            shrinkWrap: true,
-                            physics: ClampingScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              return NewsTile(
-                                imgUrl: newslist[index].urlToImage ?? "",
-                                title: newslist[index].title ?? "",
-                                desc: newslist[index].description ?? "",
-                                content: newslist[index].content ?? "",
-                                posturl: newslist[index].articleUrl ?? "",
-                              );
-
-                            }),
-                      ),
+              FutureBuilder(
+                future: getNews(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator();
+                  } else if (snapshot.connectionState == ConnectionState.done ||
+                      snapshot.hasData) {
+                    return Container(
+                      margin: EdgeInsets.only(top: 16),
+                      child: ListView.builder(
+                          itemCount: newslist.length,
+                          shrinkWrap: true,
+                          physics: ClampingScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return NewsTile(
+                              imgUrl: newslist[index].urlToImage ?? "",
+                              title: newslist[index].title ?? "",
+                              desc: newslist[index].description ?? "",
+                              content: newslist[index].content ?? "",
+                              posturl: newslist[index].articleUrl ?? "",
+                            );
+                          }),
+                    );
+                  } else {
+                    return Text('Wahala dey o!');
+                  }
+                },
+              )
             ],
           ),
         ),
@@ -148,26 +156,3 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-
-// Container(
-//                         margin: EdgeInsets.only(top: 16),
-//                         child: ListView.builder(
-//                             itemCount: newslist.length,
-//                             shrinkWrap: true,
-//                             physics: ClampingScrollPhysics(),
-//                             itemBuilder: (context, index) {
-                              // return NewsTile(
-                              //   imgUrl: newslist[index].urlToImage ?? "",
-                              //   title: newslist[index].title ?? "",
-                              //   desc: newslist[index].description ?? "",
-                              //   content: newslist[index].content ?? "",
-                              //   posturl: newslist[index].articleUrl ?? "",
-                              // );
-//                             }),
-//                       ),
-
-// imgUrl: newslist[index]['url'],
-// title: newslist[index]['title'],
-// desc: newslist[index]['description'],
-// content: newslist[index]['content'],
-// posturl: newslist[index]['articleUrl'],
