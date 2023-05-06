@@ -1,8 +1,10 @@
 import 'dart:developer';
 
 import 'package:http/http.dart' as http;
-import 'package:labari/models/article_model.dart';
+
 import 'dart:convert';
+
+import 'package:labari/src/features/news/domain/article_model.dart';
 
 class News {
   List news = [];

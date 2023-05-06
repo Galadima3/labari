@@ -64,22 +64,20 @@ class _NewsCategoryPageState extends State<NewsCategoryPage> {
         child: CircularProgressIndicator(),
       ) : SingleChildScrollView(
         child: Container(
-            child: Container(
-              margin: EdgeInsets.only(top: 16),
-              child: ListView.builder(
-                  itemCount: newslist.length,
-                  shrinkWrap: true,
-                  physics: ClampingScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return NewsTile(
-                      imgUrl: newslist[index].urlToImage ?? "",
-                      title: newslist[index].title ?? "",
-                      desc: newslist[index].description ?? "",
-                      content: newslist[index].content ?? "",
-                      posturl: newslist[index].articleUrl ?? "",
-                    );
-                  }),
-            ),
+          margin: EdgeInsets.only(top: 16),
+          child: ListView.builder(
+              itemCount: newslist.length,
+              shrinkWrap: true,
+              physics: ClampingScrollPhysics(),
+              itemBuilder: (context, index) {
+                return NewsTile(
+                  imgUrl: newslist[index].urlToImage ?? "",
+                  title: newslist[index].title ?? "",
+                  desc: newslist[index].description ?? "",
+                  content: newslist[index].content ?? "",
+                  posturl: newslist[index].articleUrl ?? "",
+                );
+              }),
         ),
       ),
     );

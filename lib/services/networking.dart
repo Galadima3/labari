@@ -1,5 +1,6 @@
 import 'package:http/http.dart';
 import 'dart:convert';
+import 'dart:developer';
 
 class NetworkHelper{
   
@@ -14,7 +15,7 @@ class NetworkHelper{
       return jsonDecode(data);
       
     } else{
-        print(response.statusCode);
+        log(response.statusCode.toString());
     }
   }
 }

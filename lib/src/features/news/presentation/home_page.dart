@@ -1,12 +1,11 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:labari/helper.dart/data.dart';
+import 'package:labari/helper.dart/news.dart';
+import 'package:labari/src/features/news/domain/categorie_model.dart';
 
 import 'package:labari/widget.dart';
-
-import '../helper.dart/data.dart';
-import '../helper.dart/news.dart';
-import '../models/categorie_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,10 +14,10 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-List<CategorieModel> categories = <CategorieModel>[];
+var categories = [];
 
 class _HomePageState extends State<HomePage> {
-  var newslist;
+  List newslist = [];
 
   getNews() async {
     Future.delayed(Duration(seconds: 3));
@@ -26,7 +25,6 @@ class _HomePageState extends State<HomePage> {
     await news.getNews();
     newslist = news.news;
     newslist.add(news.news);
-
   }
 
   @override
@@ -50,28 +48,6 @@ class _HomePageState extends State<HomePage> {
                 height: 20,
               ),
               SizedBox(
-                height: 50,
-                width: 280,
-                child: TextField(
-                  autofocus: true,
-                  decoration: InputDecoration(
-                    hintText: 'Search News',
-                    hintStyle: TextStyle(),
-                    suffixIcon: Icon(
-                      Icons.search,
-                      color: Colors.grey,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      borderSide: BorderSide(
-                        color: Colors.grey,
-                        width: 1,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
                 height: 15,
               ),
               Row(
@@ -89,7 +65,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-              Container(
+              SizedBox(
                 height: 300,
                 child: ListView.builder(
                   itemCount: categories.length,
@@ -124,7 +100,7 @@ class _HomePageState extends State<HomePage> {
                 future: getNews(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
+                    return Center(child: CircularProgressIndicator());
                   } else if (snapshot.connectionState == ConnectionState.done ||
                       snapshot.hasData) {
                     return Container(
@@ -155,4 +131,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-

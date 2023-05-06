@@ -1,4 +1,5 @@
-import 'package:labari/models/categorie_model.dart';
+
+import 'package:labari/src/features/news/domain/categorie_model.dart';
 List<CategorieModel> getCategories(){
 
   List<CategorieModel> myCategories = <CategorieModel>[];

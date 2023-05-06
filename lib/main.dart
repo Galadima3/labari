@@ -1,8 +1,14 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:labari/src/features/news/presentation/home_page.dart';
 
-import 'screens/home_page.dart';
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+    if (Platform.isAndroid) {
+    await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
+  }
 
-void main() {
   runApp(const MyApp());
 }
 
@@ -21,7 +27,6 @@ class MyApp extends StatelessWidget {
           labelStyle: TextStyle(
             fontSize: 25,
             fontWeight: FontWeight.w600,
-            
           ),
         ),
       ),
