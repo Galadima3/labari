@@ -13,13 +13,14 @@ class NewsCategoryPage extends StatefulWidget {
 }
 
 class _NewsCategoryPageState extends State<NewsCategoryPage> {
+  // ignore: prefer_typing_uninitialized_variables
   var newslist;
   bool _loading = true;
 
   @override
   void initState() {
     getNews();
-    // TODO: implement initState
+   
     super.initState();
   }
 

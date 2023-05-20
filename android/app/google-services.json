@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "754029726829",
+    "project_id": "mylez-labari-app",
+    "storage_bucket": "mylez-labari-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:754029726829:android:dcbe6cd3b5e076191d4364",
+        "android_client_info": {
+          "package_name": "com.example.labari"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "754029726829-r7856q66dorhpbk65v8f62jac4r4gv41.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA57fjXcerCj6-ugOJHTsBL5id33_oZaZ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "754029726829-r7856q66dorhpbk65v8f62jac4r4gv41.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
