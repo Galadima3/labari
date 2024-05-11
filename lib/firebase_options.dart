@@ -47,29 +47,29 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyA6mADjgR1qabM_OxmOClaBpMPCKtWTWxE',
-    appId: '1:754029726829:web:ee845840228336af1d4364',
-    messagingSenderId: '754029726829',
-    projectId: 'mylez-labari-app',
-    authDomain: 'mylez-labari-app.firebaseapp.com',
-    storageBucket: 'mylez-labari-app.appspot.com',
+    apiKey: 'AIzaSyAdPEx6hF1KFLZcdJK2fM7kzOFrXUse6wI',
+    appId: '1:1028778722262:web:cfc736809e12c497c8da77',
+    messagingSenderId: '1028778722262',
+    projectId: 'wahala-testapp-project',
+    authDomain: 'wahala-testapp-project.firebaseapp.com',
+    storageBucket: 'wahala-testapp-project.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyA57fjXcerCj6-ugOJHTsBL5id33_oZaZ0',
-    appId: '1:754029726829:android:dcbe6cd3b5e076191d4364',
-    messagingSenderId: '754029726829',
-    projectId: 'mylez-labari-app',
-    storageBucket: 'mylez-labari-app.appspot.com',
+    apiKey: 'AIzaSyA_W24WmYCVGW5tQZKGxuinKJv08bzfI1E',
+    appId: '1:1028778722262:android:7a308166f69575bec8da77',
+    messagingSenderId: '1028778722262',
+    projectId: 'wahala-testapp-project',
+    storageBucket: 'wahala-testapp-project.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDzEJFcCWvKAK44C2cYPBk9NRIBfwUdjaA',
-    appId: '1:754029726829:ios:91708cb82a52c32a1d4364',
-    messagingSenderId: '754029726829',
-    projectId: 'mylez-labari-app',
-    storageBucket: 'mylez-labari-app.appspot.com',
-    iosClientId: '754029726829-bmvjm592tht35p0ohdjm58ldb42u4g6t.apps.googleusercontent.com',
+    apiKey: 'AIzaSyD4pezLUsadqcMJh8M1UN-lgrbK1fr9UYc',
+    appId: '1:1028778722262:ios:634b5ec1c34701e4c8da77',
+    messagingSenderId: '1028778722262',
+    projectId: 'wahala-testapp-project',
+    storageBucket: 'wahala-testapp-project.appspot.com',
     iosBundleId: 'com.example.labari',
   );
+
 }

@@ -6,6 +6,8 @@ import 'dart:convert';
 
 import 'package:labari/src/features/news/domain/article_model.dart';
 
+
+
 class News {
   List news = [];
 
@@ -21,7 +23,7 @@ class News {
           for (var element in jsonData["articles"]) {
             if (element['urlToImage'] != null &&
                 element['description'] != null) {
-              Article article = Article(
+              ArticleM article = ArticleM(
                 title: element['title'],
                 author: element['author'] ?? 'Unknown',
                 description: element['description'],
@@ -42,32 +44,32 @@ class News {
   }
 }
 
-class NewsForCategory {
-  List<Article> news = [];
+// class NewsForCategory {
+//   List<Article> news = [];
 
-  Future<void> getNewsForCategory(String category) async {
-    String url =
-        "http://newsapi.org/v2/top-headlines?country=us&category=$category&apiKey=726bef2cc5114d618ba36683689aa4e8";
-    var uri = Uri.parse(url);
-    var response = await http.get(uri);
+//   Future<void> getNewsForCategory(String category) async {
+//     String url =
+//         "http://newsapi.org/v2/top-headlines?country=us&category=$category&apiKey=726bef2cc5114d618ba36683689aa4e8";
+//     var uri = Uri.parse(url);
+//     var response = await http.get(uri);
 
-    var jsonData = jsonDecode(response.body);
+//     var jsonData = jsonDecode(response.body);
 
-    if (jsonData['status'] == "ok") {
-      for (var element in jsonData["articles"]) {
-        if (element['urlToImage'] != null && element['description'] != null) {
-          Article article = Article(
-            title: element['title'],
-            author: element['author'] ?? 'Unknown',
-            description: element['description'],
-            urlToImage: element['urlToImage'],
-            publshedAt: DateTime.parse(element['publishedAt']),
-            content: element["content"] ?? 'Empty',
-            articleUrl: element["url"],
-          );
-          news.add(article);
-        }
-      }
-    }
-  }
-}
+//     if (jsonData['status'] == "ok") {
+//       for (var element in jsonData["articles"]) {
+//         if (element['urlToImage'] != null && element['description'] != null) {
+//           Article article = Article(
+//             title: element['title'],
+//             author: element['author'] ?? 'Unknown',
+//             description: element['description'],
+//             urlToImage: element['urlToImage'],
+//             publshedAt: DateTime.parse(element['publishedAt']),
+//             content: element["content"] ?? 'Empty',
+//             articleUrl: element["url"],
+//           );
+//           news.add(article);
+//         }
+//       }
+//     }
+//   }
+// }

@@ -1,4 +1,4 @@
-class Article{
+class ArticleM{
 
   String title;
   String author;
@@ -8,6 +8,6 @@ class Article{
   String content;
   String articleUrl;
 
-  Article({required this.title, required this.description,required this.author, required this.content, required this.publshedAt,
+  ArticleM({required this.title, required this.description,required this.author, required this.content, required this.publshedAt,
     required this.urlToImage, required this.articleUrl});
 }

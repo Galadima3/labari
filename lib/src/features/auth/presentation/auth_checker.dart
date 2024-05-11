@@ -31,6 +31,8 @@ class _AuthCheckerXState extends ConsumerState<AuthCheckerX> {
   Widget build(BuildContext context) {
     //final isUserLoggedIn = ref.watch(testProvider);
     //return SafeArea(child: isUserLoggedIn ? const HomePage() : const LogInScreen());
+    
+    //TODO: fix this shenanigans
     return FutureBuilder(
       future: rex,
       builder: (context, snapshot) {

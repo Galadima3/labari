@@ -18,6 +18,7 @@ class LogInScreen extends ConsumerStatefulWidget {
 }
 
 class _LogInScreenState extends ConsumerState<LogInScreen> {
+  final GlobalKey myWidgetKey = GlobalKey();
   final _formKey = GlobalKey<FormState>();
   final emailText = TextEditingController();
   final passwordText = TextEditingController();
@@ -106,21 +107,27 @@ class _LogInScreenState extends ConsumerState<LogInScreen> {
 
                 //signin button
                 GestureDetector(
+                  
                   // onTap: () async {
                   // await authProvider.signInWithEmailAndPassword(emailText.text, passwordText.text);
                   // },
                   onTap: () => ref
                       .read(authRepositoryProvider)
                       .signInWithEmailAndPassword(
-                          emailText.text, passwordText.text).then((value) async {
-                            SharedPreferences prefs = await SharedPreferences.getInstance();
-                            prefs.setBool('loggedIn', true);
-                            Navigator.pushReplacement(context, MaterialPageRoute(
-                    builder: (context) {
-                      return const HomePage();
-                    },
-                  ));
-                          }),
+                          emailText.text, passwordText.text)
+                      .then((value) async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    prefs.setBool('loggedIn', true);
+                    // if (!context.mounted) {
+                    //   return;
+                    // }
+                    Navigator.pushReplacement(context, MaterialPageRoute(
+                      builder: (context) {
+                        return const HomePage();
+                      },
+                    ));
+                  }),
                   child: const SharedButton(
                     buttonText: 'Log in',
                   ),
