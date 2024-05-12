@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:labari/src/features/auth/presentation/screens/log_in_screen.dart';
 
-import 'package:labari/src/features/news/presentation/home_page.dart';
+import 'package:labari/src/features/news/presentation/screens/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthCheckerX extends ConsumerStatefulWidget {

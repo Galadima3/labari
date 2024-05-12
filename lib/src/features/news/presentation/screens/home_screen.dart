@@ -1,20 +1,18 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-
-import 'package:labari/helper.dart/news.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:labari/src/features/auth/data/auth_repository.dart';
 import 'package:labari/src/features/auth/presentation/screens/log_in_screen.dart';
+import 'package:labari/src/features/news/data/news_article_service.dart';
 import 'package:labari/src/features/news/data/news_category_list.dart';
+import 'package:labari/src/features/news/presentation/widgets/news_category_tile.dart';
+import 'package:labari/src/features/news/presentation/widgets/news_tile_widget.dart';
 
-
-import 'package:labari/widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends ConsumerStatefulWidget {
-    const HomePage({super.key});
-
+  const HomePage({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -22,31 +20,29 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
-  List newslist = [];
-
-  Future<void> getNews() async {
-    await Future.delayed(Duration(seconds: 3));
-    News news = News();
-    await news.getNews();
-    setState(() {
-      newslist = news.news;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getNews();
-  }
-
   @override
   Widget build(BuildContext context) {
     final categories = ref.watch(newsCategoriesListProvider);
+    final newsHeadlines = ref.watch(newsHeadlinesProvider);
     //getNews();
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('FlutterNews'),
+          title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              "Flutter",
+              style:
+                  TextStyle(color: Colors.black87, fontWeight: FontWeight.w600),
+            ),
+            Text(
+              "News",
+              style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w600),
+            )
+          ],
+        ),
+          centerTitle: true,
           actions: [
             IconButton(
               onPressed: () => ref
@@ -111,34 +107,33 @@ class _HomePageState extends ConsumerState<HomePage> {
                   SizedBox(height: 10),
                 ],
               ),
-              FutureBuilder(
-                future: getNews(),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
-                  } else if (snapshot.connectionState == ConnectionState.done ||
-                      snapshot.hasData) {
-                    return Container(
-                      margin: EdgeInsets.only(top: 16),
-                      child: ListView.builder(
-                          itemCount: newslist.length,
-                          shrinkWrap: true,
-                          physics: ClampingScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            return NewsTile(
-                              imgUrl: newslist[index].urlToImage ?? "",
-                              title: newslist[index].title ?? "",
-                              desc: newslist[index].description ?? "",
-                              content: newslist[index].content ?? "",
-                              posturl: newslist[index].articleUrl ?? "",
-                            );
-                          }),
-                    );
-                  } else {
-                    return Text('Wahala dey o!');
-                  }
+              newsHeadlines.when(
+                data: (data) {
+                  final newslist = data;
+
+                  return Container(
+                    margin: EdgeInsets.only(top: 16),
+                    child: ListView.builder(
+                        itemCount: newslist.length,
+                        shrinkWrap: true,
+                        physics: ClampingScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return NewsTile(
+                            imgUrl: newslist[index].urlToImage,
+                            title: newslist[index].title,
+                            desc: newslist[index].description,
+                            content: newslist[index].content,
+                            posturl: newslist[index].articleUrl,
+                          );
+                        }),
+                  );
                 },
-              )
+                error: (error, stackTrace) => Center(
+                  child: Text(error.toString()),
+                ),
+                loading: () =>
+                    Center(child: CircularProgressIndicator.adaptive()),
+              ),
             ],
           ),
         ),

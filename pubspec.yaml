@@ -49,6 +49,7 @@ dependencies:
   flutter_svg: ^2.0.5
   email_validator: ^2.1.17
   shared_preferences: ^2.1.0
+  webview_flutter_android: ^3.16.1
   
   
 

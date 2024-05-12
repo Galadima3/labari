@@ -7,7 +7,7 @@ import 'package:labari/src/features/auth/data/auth_repository.dart';
 import 'package:labari/src/features/auth/presentation/screens/sign_up_screen.dart';
 import 'package:labari/src/features/auth/presentation/widgets/shared_button.dart';
 
-import 'package:labari/src/features/news/presentation/home_page.dart';
+import 'package:labari/src/features/news/presentation/screens/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LogInScreen extends ConsumerStatefulWidget {
