@@ -68,20 +68,16 @@ class _HomePageState extends ConsumerState<HomePage> {
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 20),
-              SizedBox(height: 15),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(width: 20),
-                  Text(
-                    'Categories',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(height: 10),
-                ],
-              ),
+              
+               Padding(
+                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                 child: Text(
+                      'Categories',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                    ),
+               ),
               SizedBox(
                 height: 300,
                 child: ListView.builder(
@@ -96,16 +92,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                 ),
               ),
               SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(width: 20),
-                  Text(
-                    'Top Headlines',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(height: 10),
-                ],
+              
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Text(
+                      'Top Headlines',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                    ),
               ),
               newsHeadlines.when(
                 data: (data) {

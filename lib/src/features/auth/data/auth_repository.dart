@@ -3,20 +3,22 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-//TODO: Fix this shitty code too
+
 
 class AuthRepository {
   const AuthRepository(this._auth);
   final FirebaseAuth _auth;
 
-    //getters
+  //Getters
   User? get userDetails => _auth.currentUser;
   Stream<User?> get authStateChange => _auth.idTokenChanges();
 
+
+  //Sign In 
   Future<User?> signInWithEmailAndPassword(
-      //sign in method
-      String email,
-      String password) async {
+    String email,
+    String password,
+  ) async {
     try {
       final result = await _auth.signInWithEmailAndPassword(
         email: email,
@@ -24,7 +26,6 @@ class AuthRepository {
       );
       log('Sign in successful');
       return result.user;
-
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         throw AuthException('User not found');
@@ -36,16 +37,20 @@ class AuthRepository {
       }
     }
   }
-  Future<User?> signUp (String email, String password) async{
+
+  //Sign Up 
+  Future<User?> signUp(String email, String password) async {
     try {
-      final result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      final result = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
       log('Sign up successful');
       return result.user;
     } on FirebaseAuthException catch (e) {
       throw Exception(e.message);
     }
   }
-  //sign out method
+
+  //Sign Out
   Future<void> signOut() async {
     await _auth.signOut();
   }
@@ -67,7 +72,7 @@ final authRepositoryProvider = Provider<AuthRepository>((ref) {
   return AuthRepository(FirebaseAuth.instance);
 });
 
-final authStateProvider = StreamProvider<User?>((ref) {
+final authStateProvider = StreamProvider.autoDispose<User?>((ref) {
   return ref.read(authRepositoryProvider).authStateChange;
 });
 

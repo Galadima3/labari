@@ -3,13 +3,14 @@ import 'dart:developer';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:labari/src/features/news/domain/article_model.dart';
+import 'package:labari/src/utils/constants.dart';
 
 class NewsCategoryService {
   Future<List<ArticleM>> getNewsForCategory(String category) async {
     List<ArticleM> news = [];
 
     String url =
-        "https://newsapi.org/v2/top-headlines?country=us&category=$category&apiKey=726bef2cc5114d618ba36683689aa4e8";
+        "https://newsapi.org/v2/top-headlines?country=us&category=$category&apiKey=${ApiConstant.apiKey}";
     var uri = Uri.parse(url);
     var response = await http.get(uri);
     var jsonData = jsonDecode(response.body);

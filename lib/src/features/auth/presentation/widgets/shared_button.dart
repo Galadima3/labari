@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 //This button is shared across the auth feature
 class SharedButton extends StatelessWidget {
-  final String buttonText;
-  const SharedButton({super.key, required this.buttonText});
+  
+  final Widget inputWidget;
+  const SharedButton(
+      {super.key, required this.inputWidget});
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +17,7 @@ class SharedButton extends StatelessWidget {
             color: const Color(0xFF427dde),
             borderRadius: BorderRadius.circular(12)),
         child: Center(
-          child: Text(
-            buttonText,
-            style: const TextStyle(
-                color: Colors.white, fontWeight: FontWeight.w500, fontSize: 17),
-          ),
+          child: inputWidget ,
         ),
       ),
     );

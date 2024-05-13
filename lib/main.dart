@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:labari/src/features/auth/presentation/auth_checker.dart';
+import 'package:labari/src/features/auth/presentation/auth_confirm.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -40,12 +40,9 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const AuthCheckerX(),
+      home: const AuthConfirm(),
     );
   }
 }
 
 
-//TODO:
-//1. Ensure the existing refactor works
-//Complete News Service Migration

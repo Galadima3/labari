@@ -1,14 +1,15 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-import 'package:google_fonts/google_fonts.dart';
 import 'package:labari/src/features/auth/data/auth_repository.dart';
 import 'package:labari/src/features/auth/presentation/screens/log_in_screen.dart';
 import 'package:labari/src/features/auth/presentation/widgets/shared_button.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:labari/src/features/auth/services/controller.dart';
+
 import 'package:labari/src/features/news/presentation/screens/home_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
+final signupStatusProvider = StateProvider<bool>((ref) => false);
 
 class SignUpScreen extends ConsumerStatefulWidget {
   const SignUpScreen({super.key});
@@ -32,30 +33,22 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
+    bool isSpinKitLoading = ref.watch(signupStatusProvider);
+    return Scaffold(
+      backgroundColor: Colors.grey[300],
+      body: SingleChildScrollView(
+        child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            //mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(
-                height: 20,
+                height: 100,
               ),
-              const Icon(
-                Icons.android_outlined,
-                size: 95,
+              SvgPicture.asset(
+                height: 135,
+                width: 135,
+                'assets/images/welcome.svg',
               ),
-
-              Text(
-                'Hello There!',
-                style: GoogleFonts.montserrat(
-                    fontSize: 45, fontWeight: FontWeight.w400),
-              ),
-              const Text('Register below',
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w300,
-                  )),
 
               const SizedBox(
                 height: 20,
@@ -65,115 +58,121 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                 key: _form,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  //mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     //email textfield
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.grey.shade200,
-                            border: Border.all(color: Colors.white),
-                            borderRadius: BorderRadius.circular(12)),
-                        child: TextFormField(
-                          controller: _email,
-                          keyboardType: TextInputType.emailAddress,
-                          validator: (text) => EmailValidator.validate(text!)
-                              ? null
-                              : "Please enter a valid email",
-                          decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Email',
-                              prefixIcon: Icon(Icons.email)),
-                        ),
+                      child: TextFormField(
+                        controller: _email,
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (text) => EmailValidator.validate(text!)
+                            ? null
+                            : "Please enter a valid email",
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            labelText: 'Email',
+                            prefixIcon: const Icon(Icons.email)),
                       ),
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 17.5),
 
                     //password textfield
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.grey.shade200,
-                            border: Border.all(color: Colors.white),
-                            borderRadius: BorderRadius.circular(12)),
-                        child: TextFormField(
-                          controller: _password,
-                          keyboardType: TextInputType.visiblePassword,
-                          obscureText: true,
-                          decoration: const InputDecoration(
-                            border: InputBorder.none,
-                            hintText: 'Password',
-                            prefixIcon: Icon(Icons.password),
+                      child: TextFormField(
+                        controller: _password,
+                        keyboardType: TextInputType.visiblePassword,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
                           ),
+                          labelText: 'Password',
+                          prefixIcon: const Icon(Icons.password),
                         ),
                       ),
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 17.5),
 
                     //confirm password textfield
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.grey.shade200,
-                            border: Border.all(color: Colors.white),
-                            borderRadius: BorderRadius.circular(12)),
-                        child: TextFormField(
-                          controller: _confirmPassword,
-                          validator: (value) {
-                            if (value != _password.text) {
-                              return 'Password do not match';
-                            }
-                            return null;
-                          },
-                          keyboardType: TextInputType.visiblePassword,
-                          obscureText: true,
-                          decoration: const InputDecoration(
-                            border: InputBorder.none,
-                            hintText: 'Password',
-                            prefixIcon: Icon(Icons.password),
+                      child: TextFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        controller: _confirmPassword,
+                        validator: (value) {
+                          if (_password.text.length > 6 &&
+                              value != _password.text) {
+                            return 'Password do not match';
+                          }
+                          return null;
+                        },
+                        keyboardType: TextInputType.visiblePassword,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
                           ),
+                          labelText: 'Confirm password',
+                          prefixIcon: const Icon(Icons.password),
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 15,
-              ),
+              const SizedBox(height: 30),
 
               //signin button
-              GestureDetector(
-                onTap: () => ref
-                    .read(authRepositoryProvider)
-                    .signUp(_email.text, _confirmPassword.text)
-                    .then((value) async {
-                  //
-                  Navigator.pushReplacement(context, MaterialPageRoute(
-                    builder: (context) {
-                      return const HomePage();
+              Consumer(
+                builder: (context, ref, child) {
+                  final signinStatusNotifier =
+                      ref.read(signupStatusProvider.notifier);
+                  return GestureDetector(
+                    onTap: () async {
+                      signinStatusNotifier.state = true;
+                      final user = await ref
+                          .read(authRepositoryProvider)
+                          .signUp(_email.text, _confirmPassword.text);
+
+                      if (user != null) {
+                        signinStatusNotifier.state = false;
+                        // ignore: use_build_context_synchronously
+                        Navigator.pushReplacement(context, MaterialPageRoute(
+                          builder: (context) {
+                            return const HomePage();
+                          },
+                        ));
+                      } else {
+                        signinStatusNotifier.state = false;
+                        return;
+                      }
                     },
-                  ));
-
-                  
-                  SharedPreferences prefs =
-                      await SharedPreferences.getInstance();
-                  prefs.setBool('loggedIn', true);
-
-                  ref.read(testProvider.notifier).logIn();
-                }),
-                child: const SharedButton(
-                  buttonText: 'Register',
-                ),
+                    child: SharedButton(
+                      inputWidget: isSpinKitLoading
+                          ? Transform.scale(
+                              scale: 0.65,
+                              child: const CircularProgressIndicator.adaptive(
+                                backgroundColor: Colors.white,
+                              ),
+                            )
+                          : const Text(
+                              "Register",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 17),
+                            ),
+                    ),
+                  );
+                },
               ),
 
-              const SizedBox(
-                height: 15,
-              ),
-              //not a member? register now
+              const SizedBox(height: 15),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -196,7 +195,8 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                     ),
                   )
                 ],
-              )
+              ),
+              const SizedBox(height: 50),
             ],
           ),
         ),
