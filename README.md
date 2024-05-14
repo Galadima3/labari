@@ -1,17 +1,67 @@
 # Labari - News App
 
-A news application built with the flutter framework. It aggregates global news headlines and allows users view specific news items based on Categories. 
-# Technologies used
+A news application built with the flutter framework. It aggregates global news headlines and allows users view specific news items based on Categories. Features of the app inlcude
+
+- User Authentication using Firebase 
+- API Integration (http package)
+- State management using Riverpod
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Follow these steps to install and run **labari** on your system.
 
-A few resources to get you started if this is your first Flutter project:
+### Prerequisites
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Before you begin, ensure you have the following dependencies and tools installed:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [Flutter](#https://docs.flutter.dev/get-started/install)
+
+- [Flutterfire CLI](#https://firebase.flutter.dev/docs/cli/)
+
+### Clone the Repository
+
+1. Open your terminal or command prompt.
+
+2. Use the following command to clone *labari* repository:
+    
+   
+ ```shell
+ git clone https://github.com/Galadima3/labari.git
+  ```
+
+
+### Configuration
+
+1. Change your working directory to the cloned repository:
+
+  ```shell
+  cd labari
+  ```
+   
+
+
+2. Set up firebase project using the Flutterfire CLI
+  ```shell
+  flutterfire configure
+  ```
+
+
+
+4. Install the required dependencies using:
+
+  ```shell
+  flutter pub get
+  ```
+
+### Build and Run
+
+1. Connect your device or start an emulator.
+
+2. To build and run the project, use the following command:
+
+  ```shell
+  flutter run
+  ```
+
+This will build the project and install it on your connected device or emulator.
+
