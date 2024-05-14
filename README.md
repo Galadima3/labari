@@ -1,6 +1,7 @@
-# labari
+# Labari - News App
 
-A new Flutter project.
+A news application built with the flutter framework. It aggregates global news headlines and allows users view specific news items based on Categories. 
+# Technologies used
 
 ## Getting Started
 
