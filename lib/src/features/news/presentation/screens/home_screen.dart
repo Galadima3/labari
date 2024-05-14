@@ -9,8 +9,6 @@ import 'package:labari/src/features/news/data/news_category_list.dart';
 import 'package:labari/src/features/news/presentation/widgets/news_category_tile.dart';
 import 'package:labari/src/features/news/presentation/widgets/news_tile_widget.dart';
 
-import 'package:shared_preferences/shared_preferences.dart';
-
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
@@ -24,24 +22,25 @@ class _HomePageState extends ConsumerState<HomePage> {
   Widget build(BuildContext context) {
     final categories = ref.watch(newsCategoriesListProvider);
     final newsHeadlines = ref.watch(newsHeadlinesProvider);
-    //getNews();
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              "Flutter",
-              style:
-                  TextStyle(color: Colors.black87, fontWeight: FontWeight.w600),
-            ),
-            Text(
-              "News",
-              style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w600),
-            )
-          ],
-        ),
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                "Flutter",
+                style: TextStyle(
+                    color: Colors.black87, fontWeight: FontWeight.w600),
+              ),
+              Text(
+                "News",
+                style:
+                    TextStyle(color: Colors.blue, fontWeight: FontWeight.w600),
+              )
+            ],
+          ),
           centerTitle: true,
           actions: [
             IconButton(
@@ -49,12 +48,6 @@ class _HomePageState extends ConsumerState<HomePage> {
                   .read(authRepositoryProvider)
                   .signOut()
                   .then((value) async {
-                SharedPreferences prefs = await SharedPreferences.getInstance();
-                prefs.setBool('loggedIn', false);
-                if (!context.mounted) {
-                  return;
-                }
-
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (context) {
                     return LogInScreen();
@@ -70,14 +63,13 @@ class _HomePageState extends ConsumerState<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              
-               Padding(
-                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                 child: Text(
-                      'Categories',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                    ),
-               ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Text(
+                  'Categories',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                ),
+              ),
               SizedBox(
                 height: 300,
                 child: ListView.builder(
@@ -92,13 +84,12 @@ class _HomePageState extends ConsumerState<HomePage> {
                 ),
               ),
               SizedBox(height: 10),
-              
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Text(
-                      'Top Headlines',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                    ),
+                  'Top Headlines',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                ),
               ),
               newsHeadlines.when(
                 data: (data) {
