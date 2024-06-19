@@ -29,7 +29,7 @@ class NewsHeadlineService {
                 urlToImage: element['urlToImage'],
                 publishedAt: DateTime.parse(element['publishedAt']),
                 content: element["content"] ?? 'Empty',
-                //Keep an eye
+                /// Keep an eye
                 articleUrl: element["url"] ?? "https://images.unsplash.com/photo-1529785501650-9baa7e39c327?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
               ));
             }

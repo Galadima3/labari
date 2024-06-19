@@ -46,6 +46,4 @@ List<CategorieModel> newsCategories = [
 ];
 
 
-final newsCategoriesListProvider = Provider<List<CategorieModel>>((ref) {
-  return newsCategories;
-});
+final newsCategoriesListProvider = Provider<List<CategorieModel>>((ref) => newsCategories);
